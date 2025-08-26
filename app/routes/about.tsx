@@ -1,9 +1,14 @@
 import { Card } from "@mantine/core";
 import type { Route } from "./+types/about";
+import cockpit from "lib/cockpit";
 
+type SiteSettings = {
+  title: string
+}
 
 export async function loader({params}: Route.LoaderArgs) {
-  let value = params.id;
+  let siteSettings = await cockpit.getSingleton<SiteSettings>("sitesettings");
+  let value = siteSettings.title;
   return {value}
 }
 
